@@ -1,7 +1,9 @@
 FROM java:7
 
-COPY HelloWorld.java /
-RUN javac HelloWorld.java
-RUN apt-get update && apt-get install -y vim
+WORKDIR /home/ubuntu/javahelloworld
+RUN mkdir bin
+COPY src /home/ubuntu/javahelloworld/src
+RUN javac -d bin src/HelloWorld.java
 
-ENTRYPOINT ["java", "HelloWorld"]
+
+ENTRYPOINT ["java", "-cp", "bin", "HelloWorld"]
